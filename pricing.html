@@ -11,44 +11,80 @@
       --card: #140A22;
       --accent: #AA50FF;
       --accent2: #D23CFF;
+      --glow: #E0B8FF;
       --text: #F5F5FF;
     }
     * { margin:0; padding:0; box-sizing:border-box; }
-    body { 
-      font-family: 'Gotham Black', Arial, sans-serif; 
-      background: var(--bg); 
-      color: var(--text); 
-    }
+    body { font-family: 'Gotham Black', Arial, sans-serif; background: var(--bg); color: var(--text); }
 
     .navbar {
-      background: rgba(20,10,34,0.98);
+      background: rgba(20,10,34,0.95);
       position: fixed;
       width: 100%;
       z-index: 1000;
-      padding: 15px 5%;
+      padding: 16px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      backdrop-filter: blur(12px);
     }
     .logo {
-      font-size: 28px;
+      font-size: 29px;
       font-weight: 900;
       background: linear-gradient(90deg, #AA50FF, #E0B8FF);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .hamburger { font-size: 28px; cursor: pointer; color: #AA50FF; }
+
+    .nav-links {
+      display: none;
+      gap: 32px;
+      font-size: 1.05rem;
+    }
+    .nav-links a {
+      color: #C8A0FF;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: #E0B8FF;
+      text-shadow: 0 0 15px rgba(170,80,255,0.6);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: linear-gradient(90deg, #AA50FF, #D23CFF);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: #E0B8FF; text-shadow: 0 0 20px #AA50FF; }
+
+    .hamburger { font-size: 30px; cursor: pointer; color: #AA50FF; }
 
     .mobile-menu {
       display: none;
       position: fixed;
-      top: 65px;
+      top: 68px;
       left: 0;
       width: 100%;
       background: #140A22;
       flex-direction: column;
-      padding: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+      padding: 25px 5%;
+      gap: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+    }
+    .mobile-menu a {
+      color: #C8A0FF;
+      text-decoration: none;
+      font-size: 1.3rem;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(170,80,255,0.15);
     }
 
     .section { padding: 110px 5% 80px; }
@@ -152,21 +188,28 @@
 
   <nav class="navbar">
     <div class="logo">BONT HUB</div>
+    
+    <div class="nav-links">
+      <a href="index.html"><i class="fas fa-home"></i> Acasă</a>
+      <a href="features.html"><i class="fas fa-list"></i> Funcții</a>
+      <a href="pricing.html" class="active"><i class="fas fa-tags"></i> Prețuri</a>
+      <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </div>
+
     <i class="fas fa-bars hamburger" onclick="toggleMenu()"></i>
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Acasă</a>
-    <a href="features.html">Funcții</a>
-    <a href="pricing.html">Prețuri</a>
-    <a href="https://discord.gg/k3RpJRTada" target="_blank">Discord</a>
+    <a href="index.html"><i class="fas fa-home"></i> Acasă</a>
+    <a href="features.html"><i class="fas fa-list"></i> Funcții</a>
+    <a href="pricing.html"><i class="fas fa-tags"></i> Prețuri</a>
+    <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> Discord</a>
   </div>
 
   <section class="section">
     <h2>💰 PREȚURI</h2>
 
     <div class="price-grid">
-      <!-- 1 Zi -->
       <div class="price-card">
         <div class="color-dot" style="background:#22C55E;">1</div>
         <div class="price-info">
@@ -179,7 +222,6 @@
         </div>
       </div>
 
-      <!-- 1 Săptămână -->
       <div class="price-card">
         <div class="color-dot" style="background:#3B82F6;">7</div>
         <div class="price-info">
@@ -188,47 +230,4 @@
         </div>
         <div class="price-amount">
           <div class="lei">25 LEI</div>
-          <div class="euro">5 EURO</div>
-        </div>
-      </div>
-
-      <!-- 1 Lună -->
-      <div class="price-card">
-        <div class="color-dot" style="background:#A855F7;">30</div>
-        <div class="price-info">
-          <h3>1 LUNĂ / A MONTH</h3>
-          <p>Acces complet 30 zile</p>
-        </div>
-        <div class="price-amount">
-          <div class="lei">45 LEI</div>
-          <div class="euro">9 EURO</div>
-        </div>
-      </div>
-
-      <!-- Permanent -->
-      <div class="price-card">
-        <div class="color-dot" style="background:#EAB308;">∞</div>
-        <div class="price-info">
-          <h3>PERMANENT</h3>
-          <p>Acces pe viață</p>
-        </div>
-        <div class="price-amount">
-          <div class="lei">55 LEI</div>
-          <div class="euro">11 EURO</div>
-        </div>
-      </div>
-    </div>
-
-    <a href="https://discord.gg/k3RpJRTada" target="_blank" class="discord-btn">
-      <i class="fab fa-discord"></i> Cumpără de pe Discord
-    </a>
-  </section>
-
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
-    }
-  </script>
-</body>
-</html>
+          <div class="
