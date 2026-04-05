@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>BONT HUB - Steal a Brainrot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <style>
+    :root {
+      --bg: #0A020F;
+      --accent: #AA50FF;
+      --accent2: #D23CFF;
+      --glow: #E0B8FF;
+      --text: #F5F5FF;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family: 'Gotham Black', Arial, sans-serif; background: var(--bg); color: var(--text); }
+
+    .navbar {
+      background: rgba(20,10,34,0.95);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(12px);
+    }
+    .logo {
+      font-size: 29px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #AA50FF, #E0B8FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: none;
+      gap: 32px;
+      font-size: 1.05rem;
+    }
+    .nav-links a {
+      color: #C8A0FF;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: #E0B8FF;
+      text-shadow: 0 0 15px rgba(170,80,255,0.6);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: linear-gradient(90deg, #AA50FF, #D23CFF);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-links a.active {
+      color: #E0B8FF;
+      text-shadow: 0 0 20px #AA50FF;
+    }
+
+    .hamburger { font-size: 30px; cursor: pointer; color: #AA50FF; }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px;
+      left: 0;
+      width: 100%;
+      background: #140A22;
+      flex-direction: column;
+      padding: 25px 5%;
+      gap: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+    }
+    .mobile-menu a {
+      color: #C8A0FF;
+      text-decoration: none;
+      font-size: 1.3rem;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(170,80,255,0.15);
+    }
+
+    .hero {
+      height: 100vh;
+      background: linear-gradient(135deg, #0A020F, #1F0B2E);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 5%;
+    }
+    .hero h1 { font-size: 3.8rem; line-height: 1.05; background: linear-gradient(90deg, #AA50FF, #E0B8FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
+    .hero p { font-size: 1.55rem; color: #E0B8FF; margin-bottom: 45px; font-weight: bold; }
+
+    .discord-btn {
+      padding: 20px 55px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #AA50FF, #D23CFF);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 45px rgba(170,80,255,0.75);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      animation: pulseGlow 2s infinite;
+      transition: all 0.3s ease;
+    }
+    .discord-btn:hover {
+      transform: translateY(-6px) scale(1.08);
+      box-shadow: 0 0 80px rgba(210,60,255,0.95);
+    }
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 45px rgba(170,80,255,0.75); }
+      50% { box-shadow: 0 0 80px rgba(210,60,255,1); }
+    }
+
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
+      .hamburger { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">BONT HUB</div>
+    
+    <div class="nav-links">
+      <a href="index.html" class="active"><i class="fas fa-home"></i> Acasă</a>
+      <a href="features.html"><i class="fas fa-list"></i> Funcții</a>
+      <a href="pricing.html"><i class="fas fa-tags"></i> Prețuri</a>
+      <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+    </div>
+
+    <i class="fas fa-bars hamburger" onclick="toggleMenu()"></i>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html"><i class="fas fa-home"></i> Acasă</a>
+    <a href="features.html"><i class="fas fa-list"></i> Funcții</a>
+    <a href="pricing.html"><i class="fas fa-tags"></i> Prețuri</a>
+    <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1>BONT HUB</h1>
+      <p>Steal a Brainrot - Best Script</p>
+      <a href="https://discord.gg/k3RpJRTada" target="_blank" class="discord-btn">
+        <i class="fab fa-discord"></i> Cumpără de pe Discord
+      </a>
+    </div>
+  </section>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+  </script>
+</body>
+</html>
