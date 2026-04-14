@@ -1,174 +1,856 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="ro" id="html-tag">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>BONT HUB - Steal a Brainrot</title>
+  <title>BONT HUB & MINI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     :root {
-      --bg: #0A020F;
+      --bg: #05010a;
+      --bg-gradient: linear-gradient(135deg, #05010a 0%, #17072a 100%);
+      --card: rgba(20, 10, 34, 0.45);
+      --card-hover: rgba(30, 15, 50, 0.75);
       --accent: #AA50FF;
       --accent2: #D23CFF;
-      --glow: #E0B8FF;
+      --accent-glow: rgba(170, 80, 255, 0.6);
       --text: #F5F5FF;
+      --text-muted: #C8A0FF;
+      --glass-border: rgba(170, 80, 255, 0.2);
+      --glass-border-hover: rgba(210, 60, 255, 0.6);
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family: 'Gotham Black', Arial, sans-serif; background: var(--bg); color: var(--text); }
 
-    .navbar {
-      background: rgba(20,10,34,0.95);
+    * { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
+    
+    body { 
+      font-family: 'Montserrat', sans-serif; 
+      background: var(--bg); 
+      background-image: var(--bg-gradient);
+      color: var(--text); 
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Animated Canvas Background */
+    #bg-canvas {
       position: fixed;
-      width: 100%;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    /* Blurred Glowing Orbs */
+    .bg-orbs {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.35;
+      animation: float 25s infinite ease-in-out alternate;
+      pointer-events: none;
+    }
+    .orb-1 { width: 450px; height: 450px; background: var(--accent); top: -10%; left: -10%; }
+    .orb-2 { width: 550px; height: 550px; background: var(--accent2); bottom: -20%; right: -10%; animation-delay: -5s; }
+    .orb-3 { width: 350px; height: 350px; background: #5c188b; top: 30%; left: 30%; animation-delay: -10s; }
+    
+    @keyframes float {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 80px); }
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0; width: 100%;
       z-index: 1000;
-      padding: 16px 5%;
+      padding: 15px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      backdrop-filter: blur(12px);
-    }
-    .logo {
-      font-size: 29px;
-      font-weight: 900;
-      background: linear-gradient(90deg, #AA50FF, #E0B8FF);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      background: rgba(10, 2, 15, 0.5);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: all 0.3s ease;
     }
 
+    .logo {
+      font-size: 26px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #fff, #E0B8FF);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo i { font-size: 1.5rem; color: var(--accent2); }
+
     .nav-links {
-      display: none;
-      gap: 32px;
-      font-size: 1.05rem;
+      display: flex;
+      gap: 25px;
+      align-items: center;
     }
+
     .nav-links a {
-      color: #C8A0FF;
+      color: var(--text-muted);
       text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.2s ease;
       position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .nav-links a:hover {
-      color: #E0B8FF;
-      text-shadow: 0 0 15px rgba(170,80,255,0.6);
+
+    .nav-links a:hover, .nav-links a.active {
+      color: #fff;
+      text-shadow: 0 0 10px var(--accent-glow);
     }
+    
     .nav-links a::after {
       content: '';
       position: absolute;
       width: 0;
       height: 2px;
-      bottom: -4px;
+      bottom: -6px;
       left: 0;
-      background: linear-gradient(90deg, #AA50FF, #D23CFF);
-      transition: width 0.3s ease;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.2s ease;
+      border-radius: 2px;
     }
-    .nav-links a:hover::after { width: 100%; }
+    
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-    .nav-links a.active {
-      color: #E0B8FF;
-      text-shadow: 0 0 20px #AA50FF;
-    }
-
-    .hamburger { font-size: 30px; cursor: pointer; color: #AA50FF; }
-
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      top: 68px;
-      left: 0;
-      width: 100%;
-      background: #140A22;
-      flex-direction: column;
-      padding: 25px 5%;
-      gap: 18px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-    }
-    .mobile-menu a {
-      color: #C8A0FF;
-      text-decoration: none;
-      font-size: 1.3rem;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(170,80,255,0.15);
-    }
-
-    .hero {
-      height: 100vh;
-      background: linear-gradient(135deg, #0A020F, #1F0B2E);
+    /* Lang Toggle Switch */
+    .lang-switch {
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 5%;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      overflow: hidden;
+      margin-left: 10px;
     }
-    .hero h1 { font-size: 3.8rem; line-height: 1.05; background: linear-gradient(90deg, #AA50FF, #E0B8FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; }
-    .hero p { font-size: 1.55rem; color: #E0B8FF; margin-bottom: 45px; font-weight: bold; }
-
-    .discord-btn {
-      padding: 20px 55px;
-      font-size: 1.4rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #AA50FF, #D23CFF);
-      color: white;
+    .lang-btn {
+      background: transparent;
       border: none;
-      border-radius: 50px;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 0 45px rgba(170,80,255,0.75);
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      animation: pulseGlow 2s infinite;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
-    .discord-btn:hover {
-      transform: translateY(-6px) scale(1.08);
-      box-shadow: 0 0 80px rgba(210,60,255,0.95);
-    }
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 45px rgba(170,80,255,0.75); }
-      50% { box-shadow: 0 0 80px rgba(210,60,255,1); }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #fff;
     }
 
-    @media (min-width: 768px) {
-      .nav-links { display: flex; }
-      .hamburger { display: none; }
+    .hamburger { display: none; font-size: 28px; color: var(--text); cursor: pointer; }
+
+    /* Layout Content */
+    .sections-container {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      padding-top: 90px;
+    }
+
+    /* Fast section display logic without annoying delays */
+    .section {
+      width: 100%;
+      min-height: calc(100vh - 90px);
+      padding: 50px 5%;
+      display: none;
+      opacity: 0;
+    }
+    .section.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 1;
+      animation: fastFade 0.3s ease-out forwards;
+    }
+
+    @keyframes fastFade {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2, h3 { font-weight: 900; }
+    
+    .gradient-text {
+      background: linear-gradient(90deg, #fff, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2.section-title {
+      font-size: 3.2rem;
+      margin-bottom: 50px;
+      letter-spacing: -1px;
+      text-align: center;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 16px 40px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      box-shadow: 0 0 25px var(--accent-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+    }
+    .btn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--accent);
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      background: rgba(170,80,255,0.1);
+      box-shadow: 0 5px 25px var(--accent-glow);
+    }
+
+    /* Extremely fast Reveal Animation Classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    }
+    .reveal.active-reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* -- HOME SECTION -- */
+    #home.active { justify-content: center; }
+    .hero-content { text-align: center; max-width: 850px; }
+    .hero-content h1 { font-size: 5.5rem; line-height: 1.05; margin-bottom: 25px; text-shadow: 0 0 50px rgba(170,80,255,0.4); }
+    .hero-content p { font-size: 1.6rem; color: var(--text-muted); margin-bottom: 45px; font-weight: 500; }
+    
+    .hero-tags {
+      display: flex; gap: 15px; justify-content: center; margin-bottom: 30px; flex-wrap: wrap;
+    }
+    .tag {
+      background: rgba(170, 80, 255, 0.1); border: 1px solid var(--glass-border);
+      padding: 8px 18px; border-radius: 20px; font-size: 0.95rem; font-weight: 600;
+      color: #E0B8FF; backdrop-filter: blur(10px);
+    }
+
+    .hero-actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+
+    /* -- FEATURES HUB SECTION -- */
+    .features-list-wrapper { max-width: 1200px; width: 100%; display: flex; flex-direction: column; gap: 20px; }
+    
+    .feature-row {
+      display: flex; gap: 20px; background: var(--card); border: 1px solid var(--glass-border);
+      border-radius: 20px; padding: 30px; backdrop-filter: blur(12px);
+      transition: all 0.2s ease; align-items: flex-start;
+    }
+    .feature-row:hover {
+      transform: translateY(-3px); border-color: var(--glass-border-hover);
+      box-shadow: 0 8px 30px rgba(170,80,255,0.15); background: var(--card-hover);
+    }
+    
+    .feature-icon-box {
+      width: 60px; height: 60px; border-radius: 14px; background: linear-gradient(135deg, rgba(170,80,255,0.2), rgba(210,60,255,0.1));
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      border: 1px solid var(--glass-border); font-size: 2rem; color: var(--accent2);
+    }
+    
+    .feature-details h3 { font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
+    .feature-details p { font-size: 1.05rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* -- BONT MINI SECTION -- */
+    .mini-container {
+      max-width: 1100px; width: 100%;
+      background: rgba(20, 10, 34, 0.4); border: 1px solid var(--accent);
+      border-radius: 30px; padding: 50px 5%; text-align: center;
+      position: relative; overflow: hidden; backdrop-filter: blur(15px);
+    }
+    .mini-container::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+      background: linear-gradient(90deg, #3B82F6, var(--accent2));
+    }
+    .mini-logo { font-size: 4rem; margin-bottom: 15px; }
+    .mini-desc { font-size: 1.25rem; margin-bottom: 35px; color: var(--text-muted); max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.5;}
+    
+    .mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 40px; }
+    .m-card { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
+    .m-card i { font-size: 1.8rem; color: #3B82F6; margin-bottom: 12px; }
+    .m-card h4 { font-size: 1.15rem; color: #fff; margin-bottom: 8px; }
+    .m-card p { font-size: 0.95rem; color: #aaa; }
+    
+    .mini-price-tag {
+      display: inline-block; padding: 12px 30px; border-radius: 30px;
+      background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.5);
+      font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 30px;
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+
+    /* -- PRICING SECTION -- */
+    .pricing-container { width: 100%; max-width: 1200px; display: flex; flex-direction: column; align-items: center; gap: 40px; }
+
+    .currency-selector {
+      display: flex; background: rgba(0,0,0,0.6); border: 1px solid var(--glass-border);
+      border-radius: 30px; padding: 5px; backdrop-filter: blur(12px);
+    }
+    .currency-selector button {
+      background: transparent; border: none; color: var(--text-muted);
+      padding: 10px 24px; font-size: 1.05rem; font-weight: 700;
+      font-family: 'Montserrat', sans-serif; cursor: pointer;
+      border-radius: 25px; transition: all 0.2s ease;
+    }
+    .currency-selector button.active {
+      background: linear-gradient(90deg, var(--accent), var(--accent2)); color: white;
+      box-shadow: 0 0 15px rgba(170,80,255,0.4);
+    }
+
+    .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; width: 100%; }
+
+    .plan-card {
+      background: var(--card); border: 1px solid var(--glass-border);
+      border-radius: 24px; padding: 40px 30px;
+      display: flex; flex-direction: column; backdrop-filter: blur(15px);
+      transition: all 0.2s ease; position: relative;
+    }
+    .plan-card:hover { border-color: var(--accent2); transform: translateY(-5px); box-shadow: 0 15px 35px rgba(170,80,255,0.25); }
+    
+    .plan-popular { border-color: var(--accent); box-shadow: 0 0 20px rgba(170,80,255,0.2); }
+    .plan-mini { border-color: rgba(59, 130, 246, 0.5); }
+    
+    .popular-badge {
+      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      padding: 6px 18px; border-radius: 25px; font-size: 0.8rem; font-weight: 800;
+      letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+    }
+
+    .plan-header { margin-bottom: 25px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px;}
+    .plan-type { font-size: 1.05rem; color: var(--accent2); font-weight: 800; letter-spacing: 2px; margin-bottom: 8px; }
+    .plan-mini .plan-type { color: #3B82F6; }
+    
+    .plan-header h3 { font-size: 1.8rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
+    .plan-price { font-size: 3.5rem; font-weight: 900; line-height: 1; background: linear-gradient(90deg, #fff, var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .plan-mini .plan-price { background: linear-gradient(90deg, #fff, #3B82F6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    
+    .plan-period { font-size: 1rem; color: var(--text-muted); font-weight: 600; margin-top: 8px; display: block;}
+
+    .plan-features { flex-grow: 1; margin-bottom: 25px; list-style: none; }
+    .plan-features li { margin-bottom: 12px; font-size: 1.02rem; display: flex; align-items: flex-start; gap: 10px; line-height: 1.4; color: #e0e0e0;}
+    .plan-features li i { color: var(--accent2); font-size: 1.2rem; margin-top: 2px; }
+    .plan-mini .plan-features li i { color: #3B82F6; }
+
+    /* Payment Box */
+    .payment-methods-widget {
+      text-align: center; padding: 30px; background: rgba(0,0,0,0.5);
+      border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); width: 100%;
+      backdrop-filter: blur(10px);
+    }
+    .payment-methods-widget p { font-size: 1.15rem; color: #fff; margin-bottom: 20px; font-weight: 600;}
+    .payment-icons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 25px; }
+    .payment-box {
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 24px; border-radius: 12px; display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 1.1rem; transition: all 0.2s ease;
+    }
+    .payment-box:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); border-color: rgba(255,255,255,0.3); }
+    
+    .pay-rev { color: #00a8ff; } .pay-pal { color: #0070ba; } .pay-safe { color: #0081d6; }
+    
+    .payment-note { font-size: 0.95rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 10px; background: rgba(170,80,255,0.1); padding: 12px; border-radius: 12px;}
+
+    /* Mobile Responsive */
+    @media (max-width: 900px) {
+      .nav-links {
+        position: fixed; top: 60px; left: 0; width: 100%;
+        background: rgba(10, 2, 15, 0.98); flex-direction: column; align-items: center;
+        padding: 20px 0; gap: 20px; transform: translateY(-150%);
+        transition: transform 0.3s ease; border-bottom: 1px solid var(--glass-border);
+      }
+      .nav-links.nav-open { transform: translateY(0); }
+      .hamburger { display: block; }
+      
+      .hero-content h1 { font-size: 3.5rem; }
+      h2.section-title { font-size: 2.5rem; }
+      .feature-row { flex-direction: column; text-align: center; align-items: center; }
+      .feature-icon-box { margin-bottom: 10px; }
     }
   </style>
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="logo">BONT HUB</div>
-    
-    <div class="nav-links">
-      <a href="index.html" class="active"><i class="fas fa-home"></i> Acasă</a>
-      <a href="features.html"><i class="fas fa-list"></i> Funcții</a>
-      <a href="pricing.html"><i class="fas fa-tags"></i> Prețuri</a>
-      <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-    </div>
+  <!-- Animated Canvas Background -->
+  <canvas id="bg-canvas"></canvas>
 
-    <i class="fas fa-bars hamburger" onclick="toggleMenu()"></i>
-  </nav>
-
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html"><i class="fas fa-home"></i> Acasă</a>
-    <a href="features.html"><i class="fas fa-list"></i> Funcții</a>
-    <a href="pricing.html"><i class="fas fa-tags"></i> Prețuri</a>
-    <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
   </div>
 
-  <section class="hero">
-    <div>
-      <h1>BONT HUB</h1>
-      <p>Steal a Brainrot - Best Script</p>
-      <a href="https://discord.gg/k3RpJRTada" target="_blank" class="discord-btn">
-        <i class="fab fa-discord"></i> Cumpără de pe Discord
-      </a>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo" onclick="navTo('home')"><i class="fas fa-biohazard"></i> <span data-lang="navLogo">BONT</span></div>
+    <div class="nav-links" id="navLinks">
+      <a onclick="navTo('home')" class="active" id="link-home"><i class="fas fa-home"></i> <span data-lang="navHome">Acasă</span></a>
+      <a onclick="navTo('features')" id="link-features"><i class="fas fa-star"></i> <span data-lang="navFeatures">BONT HUB</span></a>
+      <a onclick="navTo('mini')" id="link-mini"><i class="fas fa-bolt"></i> <span data-lang="navMini">BONT Mini</span></a>
+      <a onclick="navTo('pricing')" id="link-pricing"><i class="fas fa-tags"></i> <span data-lang="navPricing">Prețuri</span></a>
+      <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> <span data-lang="navDiscord">Discord</span></a>
+      
+      <!-- Lang Toggle -->
+      <div class="lang-switch">
+        <button class="lang-btn active" onclick="setLanguage('RO')" id="lang-RO">RO</button>
+        <button class="lang-btn" onclick="setLanguage('EN')" id="lang-EN">EN</button>
+      </div>
     </div>
-  </section>
+    <i class="fas fa-bars hamburger" onclick="toggleMobileMenu()"></i>
+  </nav>
+
+  <div class="sections-container">
+    
+    <!-- HOME SECTION -->
+    <section id="home" class="section active">
+      <div class="hero-content reveal">
+        <div class="hero-tags" id="hero-tags">
+          <span class="tag"><i class="fas fa-shield-alt"></i> Sigur & Nedetectat</span>
+          <span class="tag"><i class="fas fa-tachometer-alt"></i> Rapid & Optimizat</span>
+          <span class="tag"><i class="fas fa-sync"></i> Update Zilnic</span>
+        </div>
+        <h1 data-lang="heroTitle">Dominate the Game.</h1>
+        <p data-lang="heroDesc">Cel mai estetic, performant și complex script existent. Alege între forța brută a BONT HUB sau viteza stealth oferită de BONT Mini.</p>
+        <div class="hero-actions">
+          <a onclick="navTo('pricing')" class="btn" data-lang="btnPricing">
+            Vezi Prețurile <i class="fas fa-arrow-right"></i>
+          </a>
+          <a onclick="navTo('features')" class="btn btn-outline" data-lang="btnFeatures">
+            Află Mai Multe <i class="fas fa-info-circle"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES HUB SECTION -->
+    <section id="features" class="section">
+      <h2 class="section-title gradient-text reveal" data-lang="featuresTitle">BONT HUB Funcții</h2>
+      <div class="features-list-wrapper">
+        
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-mask"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featStealTitle">Steal a Brainrot Avansat</h3>
+            <p data-lang="featStealDesc">Sistem Auto Steal de neegalat, cu rază ajustabilă manual direct dintr-un GUI modern. Include bară vizuală de progres și scanare continuă, inteligentă a vecinătății, asigurând rate de succes maxime la furtul brainrot-urilor cu zero bug-uri sau întârzieri.</p>
+          </div>
+        </div>
+        
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-crosshairs"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featAimTitle">Bat Aimbot & Combat</h3>
+            <p data-lang="featAimDesc">Aimbot extrem de precis pentru bâtă, echipat cu lock total invizibil (safe) și auto-swing. Evaluează automat mișcarea adversarului și plasează lovitura perfectă ca să te ajute să câștigi absolut orice duel 1 la 1, fără efort.</p>
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-rocket"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featMovTitle">Movement & Galaxy Mode</h3>
+            <p data-lang="featMovDesc">Stăpânește fizica jocului prin gravitație modificată și "Mini Hop" infinit care înlocuiește vechile sărituri. Sistemul combină un "Float" perfect reglabil pe înălțime, permițându-ți să supravolezi harta și să eviți cu ușurință pericolul și radarele.</p>
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-shield-virus"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featProtTitle">Anti Ragdoll & Protecții Avansate</h3>
+            <p data-lang="featProtDesc">Tehnologie de ultimă oră care anulează stările de knockback, blocând ragdoll-ul și ridicându-te instantaneu pe picioare. Adițional, Counter Medusa integrat va lansa contra-atacuri automate, protejându-te pasiv dar mortal în fața invaziilor.</p>
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-eye"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featOptTitle">Optimizare & Vizibilitate X-Ray</h3>
+            <p data-lang="featOptDesc">X-Ray (Wallhack) performant combinat cu ESP cu waypoints pentru locațiile cheie. Sub capotă rulează un Optimizer sever ce scade numărul de frame-drops și anulează animațiile "un-walk" pentru o fluiditate vizuală impecabilă.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BONT MINI SECTION -->
+    <section id="mini" class="section">
+      <div class="mini-container reveal">
+        <h2 class="mini-logo gradient-text"><i class="fas fa-bolt" style="color:#3B82F6;"></i> BONT MINI</h2>
+        <p class="mini-desc" data-lang="miniDesc">O variantă esențializată, de tip "Lite", creată special pentru jucătorii care vor eficiență maximă, discreție absolută și o navigație performantă pe calculatoare / dispozitive mid-range.</p>
+        
+        <div class="mini-price-tag" data-lang="miniPrice">Doar 35 LEI PERMANENT</div>
+        
+        <div class="mini-grid">
+          <div class="m-card reveal">
+            <i class="fas fa-mask"></i>
+            <h4 data-lang="m1T">Auto Steal Minimalist</h4>
+            <p data-lang="m1D">Extrage rapid și curat resursele din jurul tău pe o rază conservatoare pentru a rămâne mereu neobservat.</p>
+          </div>
+          <div class="m-card reveal">
+            <i class="fas fa-eye"></i>
+            <h4 data-lang="m2T">Basic ESP & Vizibilitate</h4>
+            <p data-lang="m2D">Indicatori esențiali pe ecran pentru a ști unde sunt pericolele. Fără elemente încărcate pe ecran.</p>
+          </div>
+          <div class="m-card reveal">
+            <i class="fas fa-tachometer-alt"></i>
+            <h4 data-lang="m3T">Boost Optimizare Bază</h4>
+            <p data-lang="m3D">Dezactivează elementele estetice inutile din joc pentru a profita nativ de un spor maxim de performanță (FPS).</p>
+          </div>
+          <div class="m-card reveal">
+            <i class="fas fa-user-secret"></i>
+            <h4 data-lang="m4T">Stealth Focus</h4>
+            <p data-lang="m4D">Fără aimbot sau moduri de atac agresive care să îți atragă reporturi. Contul tău este în completă siguranță.</p>
+          </div>
+        </div>
+        
+        <a onclick="navTo('pricing')" class="btn" data-lang="btnBuyMini" style="background: linear-gradient(135deg, #3B82F6, #1E40AF); border:none; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);">
+          Cumpără Mini Acum
+        </a>
+      </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="section">
+      <h2 class="section-title gradient-text reveal" data-lang="pricingTitle">Oferte Disponibile</h2>
+      
+      <div class="pricing-container">
+        
+        <!-- Currency -->
+        <div class="currency-selector reveal">
+          <button class="currency-btn active" onclick="setCurrency('RON')">RON</button>
+          <button class="currency-btn" onclick="setCurrency('EUR')">EUR</button>
+          <button class="currency-btn" onclick="setCurrency('USD')">USD</button>
+        </div>
+
+        <div class="plans">
+          
+          <!-- BONT HUB - LUNA -->
+          <div class="plan-card reveal">
+            <div class="plan-header">
+              <div class="plan-type">BONT HUB</div>
+              <h3>1 LUNĂ</h3>
+              <div class="plan-price"><span class="price-val val-hub-mo">50</span> <span class="currency-symbol">LEI</span></div>
+              <span class="plan-period" data-lang="tempAccess">/ Acces Temporar (30 Zile)</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF1">Acces complet Meniul Full HUB</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF2">Actualizări de Securitate Zilnice</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF3">Aimbot / Anti Ragdoll / Stealer</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF4">Suport tehnic Standard</span></li>
+            </ul>
+            <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="buyBtn" style="width: 100%; justify-content: center; margin-top: 20px;">
+              Achiziționează <i class="fas fa-shopping-cart"></i>
+            </a>
+          </div>
+
+          <!-- BONT HUB - PERMANENT -->
+          <div class="plan-card plan-popular reveal">
+            <div class="popular-badge" data-lang="popBadge">Cel Mai Apreciat</div>
+            <div class="plan-header">
+              <div class="plan-type">BONT HUB</div>
+              <h3>PERMANENT</h3>
+              <div class="plan-price"><span class="price-val val-hub-life">60</span> <span class="currency-symbol">LEI</span></div>
+              <span class="plan-period" data-lang="lifeAccess">/ Acces Pe Viață (Fără abonații)</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF1">Toate beneficiile din HUB Lunar</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF2">O singură plată, acces Nelimitat</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF3">Rol Exclusiv [VIP] pe serverul Discord</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF4">Prioritate garantată la suport</span></li>
+            </ul>
+            <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="buyPerm" style="width: 100%; justify-content: center; margin-top: 20px;">
+              Cumpără Permanent <i class="fas fa-shopping-cart"></i>
+            </a>
+          </div>
+
+          <!-- BONT MINI - PERMANENT -->
+          <div class="plan-card plan-mini reveal">
+            <div class="plan-header">
+              <div class="plan-type">LITE SCRIPT</div>
+              <h3>BONT MINI</h3>
+              <div class="plan-price"><span class="price-val val-mini-life">35</span> <span class="currency-symbol">LEI</span></div>
+              <span class="plan-period" data-lang="miniAccess">/ Acces Pe Viață</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF1">Versiunea Lite, optimizată suprem</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF2">Strict funcții de Steal Minimalist & ESP</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF3">Perfect pentru PC-uri mai slabe</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF4">Extrem de stealth și Anti-Ban</span></li>
+            </ul>
+            <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="buyLite" style="width: 100%; justify-content: center; margin-top: 20px; background: linear-gradient(135deg, #3B82F6, #1E40AF); border:none;">
+              Cumpără Mini <i class="fas fa-shopping-cart"></i>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Payment Methods Box -->
+        <div class="payment-methods-widget reveal">
+          <p data-lang="payMethods">Se Acceptă Următoarele Metode De Plată</p>
+          <div class="payment-icons">
+            <div class="payment-box"><i class="fas fa-university pay-rev"></i> Revolut</div>
+            <div class="payment-box"><i class="fab fa-paypal pay-pal"></i> PayPal</div>
+            <div class="payment-box"><i class="fas fa-barcode pay-safe"></i> Paysafecard</div>
+          </div>
+          <div class="payment-note">
+            <i class="fas fa-info-circle"></i>
+            <span data-lang="payNote">Plata se efectuează 100% sigur pe serverul nostru de Discord prin crearea unui Ticket. Toate tranzacțiile sunt înregistrate și garantate de echipa administrativă.</span>
+          </div>
+          <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="payBtn" style="margin-top: 25px; padding: 12px 30px; font-size: 1.05rem;">
+            <i class="fab fa-discord"></i> Intră pe Discord și Deschide Ticket
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
 
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    // --------------
+    // LANGUAGE LOGIC
+    // --------------
+    const dict = {
+      RO: {
+        navLogo: "BONT", navHome: "Acasă", navFeatures: "BONT HUB", navMini: "BONT Mini", navPricing: "Prețuri", navDiscord: "Discord",
+        heroTitle: "Dominate the Game.", heroDesc: "Cel mai estetic, performant și complex script existent. Alege între forța brută a BONT HUB sau viteza stealth oferită de BONT Mini.",
+        btnPricing: "Vezi Prețurile <i class='fas fa-arrow-right'></i>", btnFeatures: "Află Mai Multe <i class='fas fa-info-circle'></i>",
+        featuresTitle: "BONT HUB Funcții", featStealTitle: "Steal a Brainrot Avansat",
+        featStealDesc: "Sistem Auto Steal de neegalat, cu rază ajustabilă manual direct dintr-un GUI modern. Include bară vizuală de progres și scanare continuă, inteligentă a vecinătății, asigurând rate de succes maxime la furtul brainrot-urilor cu zero bug-uri sau întârzieri.",
+        featAimTitle: "Bat Aimbot & Combat", featAimDesc: "Aimbot extrem de precis pentru bâtă, echipat cu lock total invizibil (safe) și auto-swing. Evaluează automat mișcarea adversarului și plasează lovitura perfectă ca să te ajute să câștigi absolut orice duel 1 la 1, fără efort.",
+        featMovTitle: "Movement & Galaxy Mode", featMovDesc: "Stăpânește fizica jocului prin gravitație modificată și 'Mini Hop' infinit care înlocuiește vechile sărituri. Sistemul combină un 'Float' perfect reglabil pe înălțime, permițându-ți să supravolezi harta și să eviți cu ușurință pericolul și radarele.",
+        featProtTitle: "Anti Ragdoll & Protecții Avansate", featProtDesc: "Tehnologie de ultimă oră care anulează stările de knockback, blocând ragdoll-ul și ridicându-te instantaneu pe picioare. Adițional, Counter Medusa integrat va lansa contra-atacuri automate, protejându-te pasiv dar mortal în fața invaziilor.",
+        featOptTitle: "Optimizare & Vizibilitate X-Ray", featOptDesc: "X-Ray (Wallhack) performant combinat cu ESP cu waypoints pentru locațiile cheie. Sub capotă rulează un Optimizer sever ce scade numărul de frame-drops și anulează animațiile 'un-walk' pentru o fluiditate vizuală impecabilă.",
+        miniDesc: "O variantă esențializată, de tip 'Lite', creată special pentru jucătorii care vor eficiență maximă, discreție absolută și o navigație performantă pe calculatoare / dispozitive mid-range.",
+        miniPrice: "Doar 35 LEI PERMANENT", m1T: "Auto Steal Minimalist", m1D: "Extrage rapid și curat resursele din jurul tău pe o rază conservatoare pentru a rămâne mereu neobservat.",
+        m2T: "Basic ESP & Vizibilitate", m2D: "Indicatori esențiali pe ecran pentru a ști unde sunt pericolele. Fără elemente încărcate pe ecran.", m3T: "Boost Optimizare Bază", m3D: "Dezactivează elementele estetice inutile din joc pentru a profita nativ de un spor maxim de performanță (FPS).",
+        m4T: "Stealth Focus", m4D: "Fără aimbot sau moduri de atac agresive care să îți atragă reporturi. Contul tău este în completă siguranță.", btnBuyMini: "Cumpără Mini Acum",
+        pricingTitle: "Oferte Disponibile", tempAccess: "/ Acces Temporar (30 Zile)", lifeAccess: "/ Acces Pe Viață (Fără abonații)", miniAccess: "/ Acces Pe Viață",
+        buyBtn: "Achiziționează <i class='fas fa-shopping-cart'></i>", buyPerm: "Cumpără Permanent <i class='fas fa-shopping-cart'></i>", buyLite: "Cumpără Mini <i class='fas fa-shopping-cart'></i>",
+        payMethods: "Se Acceptă Următoarele Metode De Plată", payNote: "Plata se efectuează 100% sigur pe serverul nostru de Discord prin crearea unui Ticket. Toate tranzacțiile sunt înregistrate și garantate de echipa administrativă.",
+        payBtn: "<i class='fab fa-discord'></i> Intră pe Discord și Deschide Ticket",
+        pHubF1: "Acces complet Meniul Full HUB", pHubF2: "Actualizări de Securitate Zilnice", pHubF3: "Aimbot / Anti Ragdoll / Stealer", pHubF4: "Suport tehnic Standard",
+        pLHubF1: "Toate beneficiile din HUB Lunar", pLHubF2: "O singură plată, acces Nelimitat", pLHubF3: "Rol Exclusiv [VIP] pe serverul Discord", pLHubF4: "Prioritate garantată la suport",
+        pMinF1: "Versiunea Lite, optimizată suprem", pMinF2: "Strict funcții de Steal Minimalist & ESP", pMinF3: "Perfect pentru PC-uri mai slabe", pMinF4: "Extrem de stealth și Anti-Ban", popBadge: "Cel Mai Apreciat"
+      },
+      EN: {
+        navLogo: "BONT", navHome: "Home", navFeatures: "BONT HUB", navMini: "BONT Mini", navPricing: "Pricing", navDiscord: "Discord",
+        heroTitle: "Dominate the Game.", heroDesc: "The most aesthetic, high-performance and complex script available. Choose between the pure power of BONT HUB or the stealth speed of BONT Mini.",
+        btnPricing: "View Pricing <i class='fas fa-arrow-right'></i>", btnFeatures: "Learn More <i class='fas fa-info-circle'></i>",
+        featuresTitle: "BONT HUB Features", featStealTitle: "Advanced Auto Stealer",
+        featStealDesc: "Unmatched Auto Steal system with adjustable radius straightforward from the modern GUI. Provides a visual progress bar and constant smart neighborhood scanning, assuring maximum steal success without stutters.",
+        featAimTitle: "Bat Aimbot & Combat", featAimDesc: "Highly accurate bat aimbot with invisible lock (totally safe) and auto-swing. Calculates enemy movement flawlessly placing the perfect hit allowing you to win every 1 on 1 scenario.",
+        featMovTitle: "Movement & Galaxy Mode", featMovDesc: "Master game physics using custom gravity scaling and an infinite 'Mini Hop' fixing classical jumps. Blended with adjustable 'Float' height, mapping is totally redefined escaping any ambushes.",
+        featProtTitle: "Anti Ragdoll & Advanced Protections", featProtDesc: "Cutting-edge framework annihilates knockbacks by instantaneously picking you up from ragdolls. Further equipped with an active Counter Medusa mechanism offering passive yet lethal protection routines.",
+        featOptTitle: "Optimization & X-Ray Vision", featOptDesc: "Superior X-Ray (Wallhack) coupled with critical waypoint ESP systems. Employs a hardcore optimizer turning down junk renderings and un-walk animations keeping structural FPS completely stable.",
+        miniDesc: "A stripped-up 'Lite' fundamental build designed purely for individuals who desire basic stealth, efficiency, and flawless traversal for low-to-mid specs devices.",
+        miniPrice: "Only 35 LEI LIFETIME", m1T: "Minimalist Auto Steal", m1D: "Snatch nearby materials cleanly within conservative ranges to maintain pure invisibility.",
+        m2T: "Basic ESP & Visibility", m2D: "Crucial screen indications skipping huge clutters and protecting screen ratios.", m3T: "Core Optimization Boost", m3D: "Aims to disable pointless native aesthetics granting an immediate raw FPS boost.",
+        m4T: "Stealth Focus", m4D: "Bans aggressive scripts / aimers that could drag reports, putting your account on zero risks.", btnBuyMini: "Purchase Mini Now",
+        pricingTitle: "Available Offers", tempAccess: "/ Temporary Access (30 Days)", lifeAccess: "/ Lifetime Access (No billing)", miniAccess: "/ Lifetime Access",
+        buyBtn: "Purchase <i class='fas fa-shopping-cart'></i>", buyPerm: "Purchase Lifetime <i class='fas fa-shopping-cart'></i>", buyLite: "Purchase Mini <i class='fas fa-shopping-cart'></i>",
+        payMethods: "Accepted Payment Methods", payNote: "Payments are processed directly via Secure Tickets on our Discord Server. Your order is logged and covered completely by our administrative team.",
+        payBtn: "<i class='fab fa-discord'></i> Join Discord and Open Ticket",
+        pHubF1: "Full Hub Menu Access", pHubF2: "Daily Security Updates", pHubF3: "Aimbot / Anti-Ragdoll / Stealer", pHubF4: "Standard Technical Support",
+        pLHubF1: "All Monthly HUB Benefits", pLHubF2: "One-Time Payment, Lifetime", pLHubF3: "Exclusive [VIP] Discord Role", pLHubF4: "Priority Assistance Guaranteed",
+        pMinF1: "Supremely Optimized Lite version", pMinF2: "Strictly Minimal Steal & ESP", pMinF3: "Perfect for Low-End Rigs", pMinF4: "Unmatched Stealth & Anti-Ban", popBadge: "Most Popular"
+      }
+    };
+    
+    function setLanguage(lang) {
+      document.getElementById('lang-RO').classList.remove('active');
+      document.getElementById('lang-EN').classList.remove('active');
+      document.getElementById('lang-' + lang).classList.add('active');
+      document.getElementById('html-tag').lang = lang.toLowerCase();
+      
+      const elements = document.querySelectorAll('[data-lang]');
+      elements.forEach(el => {
+        const key = el.getAttribute('data-lang');
+        if (dict[lang] && dict[lang][key]) {
+          el.innerHTML = dict[lang][key];
+        }
+      });
+      
+      // Update Tags
+      const tagsContainer = document.getElementById('hero-tags');
+      if (tagsContainer) {
+        let tagHtml = "";
+        const arr = lang === 'EN' ? dict.EN.heroTags : dict.RO.heroTags;
+        arr.forEach(t => tagHtml += `<span class="tag">${t}</span>`);
+        tagsContainer.innerHTML = tagHtml;
+      }
+    }
+
+    // --------------
+    // PARTICLE ENGINE
+    // --------------
+    const canvas = document.getElementById("bg-canvas");
+    const ctx = canvas.getContext("2d");
+    let particlesArray = [];
+    
+    function initCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", initCanvas);
+    initCanvas();
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.4 - 0.2;
+        this.speedY = Math.random() * -0.6 - 0.1;
+        this.opacity = Math.random() * 0.5 + 0.1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.y < 0) {
+          this.y = canvas.height;
+          this.x = Math.random() * canvas.width;
+        }
+      }
+      draw() {
+        ctx.fillStyle = `rgba(170, 80, 255, ${this.opacity})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    function createParticles() {
+      particlesArray = [];
+      let numParticles = (canvas.width * canvas.height) / 8000;
+      for (let i = 0; i < numParticles; i++) {
+        particlesArray.push(new Particle());
+      }
+    }
+    function animateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+      }
+      requestAnimationFrame(animateParticles);
+    }
+    createParticles();
+    animateParticles();
+
+    // --------------
+    // INSTANT NAVIGATION
+    // --------------
+    function navTo(targetId) {
+      document.querySelectorAll('.nav-links a').forEach(a => { if(a.id) a.classList.remove('active'); });
+      const activeLink = document.getElementById('link-' + targetId);
+      if(activeLink) activeLink.classList.add('active');
+
+      // Instant swap removes annoying delay
+      document.querySelectorAll('.section').forEach(sec => {
+        sec.classList.remove('active');
+        sec.style.display = 'none';
+      });
+
+      const targetSec = document.getElementById(targetId);
+      targetSec.style.display = 'flex';
+      void targetSec.offsetWidth; // Force DOM flush / Reflow
+      targetSec.classList.add('active');
+      runReveals(); // Check intersections instantly
+
+      const navLinks = document.getElementById('navLinks');
+      if(navLinks.classList.contains('nav-open')) navLinks.classList.remove('nav-open');
+      
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    window.addEventListener('load', () => {
+      const hash = window.location.hash.replace('#', '');
+      if (['home', 'features', 'mini', 'pricing'].includes(hash)) {
+        navTo(hash);
+      } else {
+        navTo('home');
+      }
+    });
+
+    function toggleMobileMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('nav-open');
+    }
+
+    // --------------
+    // PRICING LOGIC
+    // --------------
+    const priceData = {
+      RON: { hubMo: 50, hubLife: 60, miniLife: 35, sym: 'LEI' },
+      EUR: { hubMo: 10, hubLife: 12, miniLife: 7, sym: '€' },
+      USD: { hubMo: 11, hubLife: 13, miniLife: 8, sym: '$' }
+    };
+
+    function setCurrency(curr) {
+      document.querySelectorAll('.currency-selector button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const elements = document.querySelectorAll('.price-val, .currency-symbol');
+      
+      document.querySelector('.val-hub-mo').innerText = priceData[curr].hubMo;
+      document.querySelector('.val-hub-life').innerText = priceData[curr].hubLife;
+      document.querySelector('.val-mini-life').innerText = priceData[curr].miniLife;
+      document.querySelectorAll('.currency-symbol').forEach(el => el.innerText = priceData[curr].sym);
+      
+      // Fast UI snap feedback
+      elements.forEach(el => {
+        el.style.opacity = 0.5;
+        setTimeout(() => el.style.opacity = 1, 50);
+      });
+    }
+
+    // --------------
+    // SNAPPY REVEALS
+    // --------------
+    function runReveals() {
+      const reveals = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            entry.target.classList.add('active-reveal');
+          }
+        });
+      }, { 
+        threshold: 0.1,
+      });
+      
+      reveals.forEach(el => observer.observe(el));
     }
   </script>
 </body>
