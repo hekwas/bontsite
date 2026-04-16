@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ro" id="html-tag">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pricing | BONT HUB & MINI - Premium Roblox Script Plans</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png">
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Explore BONT HUB and MINI pricing plans. Choose between monthly or lifetime access for the best Steal a Brainrot Roblox script. Affordable and secure payments.">
+  <meta name="keywords" content="bont hub pricing, bont mini price, roblox script buy, steal a brainrot script purchase, roblox script monthly plan">
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <nav class="navbar">
+    <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit; display:flex; align-items:center; gap:10px;"><img src="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png" class="logo-img" alt="Bont Logo"> <span data-lang="navLogo">BONT</span></a></div>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" id="link-home"><i class="fas fa-home"></i> <span data-lang="navHome">Acasă</span></a>
+      <a href="details.html" id="link-features"><i class="fas fa-star"></i> <span data-lang="navFeatures">BONT HUB</span></a>
+      <a href="details.html#mini" id="link-mini"><i class="fas fa-bolt"></i> <span data-lang="navMini">BONT Mini</span></a>
+      <a href="pricing.html" id="link-pricing" class="active"><i class="fas fa-tags"></i> <span data-lang="navPricing">Prețuri</span></a>
+      <a href="showcase.html" id="link-showcase"><i class="fas fa-play-circle"></i> <span data-lang="navShowcase">Showcase</span></a>
+      <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> <span data-lang="navDiscord">Discord</span></a>
+      <div class="lang-switch">
+        <button class="lang-btn" onclick="setLanguage('RO')" id="lang-RO">RO</button>
+        <button class="lang-btn" onclick="setLanguage('EN')" id="lang-EN">EN</button>
+      </div>
+    </div>
+    <i class="fas fa-bars hamburger" onclick="toggleMobileMenu()"></i>
+  </nav>
+
+  <div class="sections-container">
+    <section id="pricing" class="section">
+      <h2 class="section-title gradient-text reveal" data-lang="pricingTitle">Oferte Disponibile</h2>
+      <div class="pricing-container">
+        <div class="currency-selector reveal">
+          <button class="currency-btn active" onclick="setCurrency('RON')">RON</button>
+          <button class="currency-btn" onclick="setCurrency('EUR')">EUR</button>
+          <button class="currency-btn" onclick="setCurrency('USD')">USD</button>
+        </div>
+        <div class="plans">
+          <div class="plan-card reveal">
+            <div class="plan-header">
+              <div class="plan-type">BONT HUB</div>
+              <h3>1 LUNĂ</h3>
+              <div class="plan-price"><span class="price-val val-hub-mo">50</span> <span class="currency-symbol">LEI</span></div>
+              <span class="plan-period" data-lang="tempAccess">/ Acces Temporar (30 Zile)</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF1">Acces complet Meniul Full HUB</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF2">Actualizări de Securitate Zilnice</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF3">Aimbot / Anti Ragdoll / Stealer</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pHubF4">Suport tehnic Standard</span></li>
+            </ul>
+            <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="buyBtn" style="width: 100%; justify-content: center; margin-top: 20px;">
+              Achiziționează <i class="fas fa-shopping-cart"></i>
+            </a>
+          </div>
+          <div class="plan-card plan-popular reveal">
+            <div class="popular-badge" data-lang="popBadge">Cel Mai Apreciat</div>
+            <div class="plan-header">
+              <div class="plan-type">BONT HUB</div>
+              <h3>PERMANENT</h3>
+              <div class="plan-price"><span class="price-val val-hub-life">60</span> <span class="currency-symbol">LEI</span></div>
+              <span class="plan-period" data-lang="lifeAccess">/ Acces Pe Viață</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF1">Toate beneficiile din HUB Lunar</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF2">O singură plată, acces Nelimitat</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF3">Rol Exclusiv [VIP] pe Discord</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pLHubF4">Prioritate garantată la suport</span></li>
+            </ul>
+            <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="buyPerm" style="width: 100%; justify-content: center; margin-top: 20px;">
+              Cumpără Permanent <i class="fas fa-shopping-cart"></i>
+            </a>
+          </div>
+          <div class="plan-card plan-mini reveal">
+            <div class="plan-header">
+              <div class="plan-type">LITE SCRIPT</div>
+              <h3>BONT MINI</h3>
+              <div class="plan-price"><span class="price-val val-mini-life">35</span> <span class="currency-symbol">LEI</span></div>
+              <span class="plan-period" data-lang="miniAccess">/ Acces Pe Viață</span>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF1">Versiunea Lite, optimizată suprem</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF2">Strict funcții de Steal Minimalist & ESP</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF3">Perfect pentru PC-uri mai slabe</span></li>
+              <li><i class="fas fa-check-circle"></i> <span data-lang="pMinF4">Extrem de stealth și Anti-Ban</span></li>
+            </ul>
+            <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="buyLite" style="width: 100%; justify-content: center; margin-top: 20px; background: linear-gradient(135deg, #3B82F6, #1E40AF); border:none;">
+              Cumpără Mini <i class="fas fa-shopping-cart"></i>
+            </a>
+          </div>
+        </div>
+        <div class="payment-methods-widget reveal">
+          <p data-lang="payMethods">Se Acceptă Următoarele Metode De Plată</p>
+          <div class="payment-icons">
+            <div class="payment-box"><i class="fas fa-university pay-rev"></i> Revolut</div>
+            <div class="payment-box"><i class="fab fa-paypal pay-pal"></i> PayPal</div>
+            <div class="payment-box"><i class="fas fa-barcode pay-safe"></i> Paysafecard</div>
+          </div>
+          <div class="payment-note">
+            <i class="fas fa-info-circle"></i>
+            <span data-lang="payNote">Plata se efectuează 100% sigur pe serverul nostru de Discord prin crearea unui Ticket.</span>
+          </div>
+          <a href="https://discord.gg/k3RpJRTada" target="_blank" class="btn" data-lang="payBtn" style="margin-top: 25px; padding: 12px 30px; font-size: 1.05rem;">
+            <i class="fab fa-discord"></i> Intră pe Discord
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/pricing.js"></script>
+</body>
+</html>

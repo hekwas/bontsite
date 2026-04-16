@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ro" id="html-tag">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Details | BONT HUB & MINI Features</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png">
+  <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png">
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png" type="image/x-icon">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover the powerful features of BONT HUB and BONT MINI. Learn about Auto Steal, Bat Aimbot, Anti Ragdoll, and superior optimization for Roblox.">
+  <meta name="keywords" content="bont hub features, bont mini details, roblox script functions, auto steal roblox, bat aimbot script">
+</head>
+<body>
+
+  <canvas id="bg-canvas"></canvas>
+  <div class="bg-orbs">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <nav class="navbar">
+    <div class="logo"><a href="index.html" style="text-decoration:none; color:inherit; display:flex; align-items:center; gap:10px;"><img src="https://raw.githubusercontent.com/hekwas/bontsite/main/favcoin.png" class="logo-img" alt="Bont Logo"> <span data-lang="navLogo">BONT</span></a></div>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html" id="link-home"><i class="fas fa-home"></i> <span data-lang="navHome">Acasă</span></a>
+      <a href="details.html" id="link-features" class="active"><i class="fas fa-star"></i> <span data-lang="navFeatures">BONT HUB</span></a>
+      <a href="details.html#mini" id="link-mini"><i class="fas fa-bolt"></i> <span data-lang="navMini">BONT Mini</span></a>
+      <a href="pricing.html" id="link-pricing"><i class="fas fa-tags"></i> <span data-lang="navPricing">Prețuri</span></a>
+      <a href="showcase.html" id="link-showcase"><i class="fas fa-play-circle"></i> <span data-lang="navShowcase">Showcase</span></a>
+      <a href="https://discord.gg/k3RpJRTada" target="_blank"><i class="fab fa-discord"></i> <span data-lang="navDiscord">Discord</span></a>
+      <div class="lang-switch">
+        <button class="lang-btn" onclick="setLanguage('RO')" id="lang-RO">RO</button>
+        <button class="lang-btn" onclick="setLanguage('EN')" id="lang-EN">EN</button>
+      </div>
+    </div>
+    <i class="fas fa-bars hamburger" onclick="toggleMobileMenu()"></i>
+  </nav>
+
+  <div class="sections-container" style="padding-top: 120px;">
+    
+    <!-- BONT HUB PRODUCT SECTION -->
+    <section id="features" class="section">
+      <div class="product-hero hub-theme reveal">
+        <h2 data-lang="featuresTitle">BONT HUB</h2>
+        <p data-lang="heroDesc">Experiența completă BONT. Putere brută, viteză de neegalat și funcții de luptă de ultimă generație pentru a domina orice server Roblox.</p>
+      </div>
+
+      <div style="max-width: 1200px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-mask"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featStealTitle">Steal a Brainrot Avansat</h3>
+            <p data-lang="featStealDesc">Sistem Auto Steal de neegalat, cu rază ajustabilă manual direct dintr-un GUI modern. Include bară vizuală de progres și scanare continuă, inteligentă a vecinătății, asigurând rate de succes maxime la furtul brainrot-urilor cu zero bug-uri sau întârzieri.</p>
+          </div>
+        </div>
+        
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-crosshairs"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featAimTitle">Bat Aimbot & Combat</h3>
+            <p data-lang="featAimDesc">Aimbot extrem de precis pentru bâtă, echipat cu lock total invizibil (safe) și auto-swing. Evaluează automat mișcarea adversarului și plasează lovitura perfectă ca să te ajute să câștigi absolut orice duel 1 la 1, fără efort.</p>
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-rocket"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featMovTitle">Movement & Galaxy Mode</h3>
+            <p data-lang="featMovDesc">Stăpânește fizica jocului prin gravitație modificată și "Mini Hop" infinit care înlocuiește vechile sărituri. Sistemul combină un "Float" perfect reglabil pe înălțime, permițându-ți să supravolezi harta și să eviți cu ușurință pericolul și radarele.</p>
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-shield-virus"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featProtTitle">Anti Ragdoll & Protecții Avansate</h3>
+            <p data-lang="featProtDesc">Tehnologie de ultimă oră care anulează stările de knockback, blocând ragdoll-ul și ridicându-te instantaneu pe picioare. Adițional, Counter Medusa integrat va lansa contra-atacuri automate, protejându-te pasiv dar mortal în fața invaziilor.</p>
+          </div>
+        </div>
+
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-eye"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="featOptTitle">Optimizare & Vizibilitate X-Ray</h3>
+            <p data-lang="featOptDesc">X-Ray (Wallhack) performant combinat cu ESP cu waypoints pentru locațiile cheie. Sub capotă rulează un Optimizer sever ce scade numărul de frame-drops și anulează animațiile "un-walk" pentru o fluiditate vizuală impecabilă.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CHOICE SEPARATOR -->
+    <div class="choice-separator reveal">
+      <div class="choice-line"></div>
+      <div class="choice-label">Sau Varianta Lite</div>
+      <div class="choice-line"></div>
+    </div>
+
+    <!-- BONT MINI PRODUCT SECTION -->
+    <section id="mini" class="section">
+      <div class="product-hero mini-theme reveal">
+        <h2>BONT MINI</h2>
+        <p data-lang="miniDesc">O variantă esențializată, de tip "Lite", creată special pentru jucătorii care vor eficiență maximă, discreție absolută și o navigație performantă pe calculatoare / dispozitive mid-range.</p>
+        <div class="mini-price-tag" data-lang="miniPrice">Doar 35 LEI PERMANENT</div>
+      </div>
+
+      <div style="max-width: 1200px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px;" class="mini-theme">
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-mask"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="m1T">Auto Steal Minimalist</h3>
+            <p data-lang="m1D">Extrage rapid și curat resursele din jurul tău pe o rază conservatoare pentru a rămâne mereu neobservat.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-eye"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="m2T">Basic ESP & Vizibilitate</h3>
+            <p data-lang="m2D">Indicatori esențiali pe ecran pentru a ști unde sunt pericolele. Fără elemente încărcate pe ecran.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-tachometer-alt"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="m3T">Boost Optimizare Bază</h3>
+            <p data-lang="m3D">Dezactivează elementele estetice inutile din joc pentru a profita nativ de un spor maxim de performanță (FPS).</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="feature-icon-box"><i class="fas fa-user-secret"></i></div>
+          <div class="feature-details">
+            <h3 data-lang="m4T">Stealth Focus</h3>
+            <p data-lang="m4D">Fără aimbot sau moduri de atac agresive care să îți atragă reporturi. Contul tău este în completă siguranță.</p>
+          </div>
+        </div>
+      </div>
+      
+      <a href="pricing.html" class="btn reveal" data-lang="btnBuyMini" style="margin-top: 40px; background: linear-gradient(135deg, #3B82F6, #1E40AF); border:none; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);">
+        Cumpără Mini Acum
+      </a>
+    </section>
+
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
